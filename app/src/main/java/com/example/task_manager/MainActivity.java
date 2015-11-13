@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Task> allTasks = new ArrayList<Task>();
     private TaskAdapter adapter = null;
 
+    private DbHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +27,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if(dbHelper == null) {
+            dbHelper = new DbHelper(this);
+        }
+
         // iniciar adaptador
         if (adapter == null) {
-            adapter = new TaskAdapter(this, 0, allTasks);
+            adapter = new TaskAdapter(this, 0, dbHelper.selectTasks());
         }
         // asignar adaptador a ListView
         ListView listTasks = (ListView) findViewById(R.id.listTasks);
@@ -75,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
                 Task newTask = new Task();
                 newTask.setName(tarea);
+
+                dbHelper.insertTask(newTask);
+
                 adapter.add(newTask);
                 adapter.notifyDataSetChanged();
             }
