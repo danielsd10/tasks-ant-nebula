@@ -5,6 +5,10 @@ public class Task {
     private Integer _taskId;
     private String _taskName;
 
+    public Task() {
+        this._taskId = 0;
+    }
+
     public Task(Integer id) {
         this._taskId = id;
     }

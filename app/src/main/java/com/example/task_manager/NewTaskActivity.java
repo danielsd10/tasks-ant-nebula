@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewTaskActivity extends AppCompatActivity {
 
@@ -19,12 +20,15 @@ public class NewTaskActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editText.getText().length()!=0) {
+                if (editText.getText().length() != 0) {
                     String tarea = editText.getText().toString();
                     Intent intent = getIntent();
                     intent.putExtra("tarea", tarea);
                     setResult(RESULT_OK, intent);
                     finish(); // finalizar para volver a actividad anterior
+                } else {
+                    Toast toast = Toast.makeText(NewTaskActivity.this, R.string.error_empty, Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
         });
