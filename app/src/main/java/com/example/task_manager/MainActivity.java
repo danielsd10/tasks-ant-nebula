@@ -58,13 +58,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // preguntar por codigo de solicitud
         if (requestCode == NEWTASK_REQUEST) {
-            // revisar que fue exitos
+            // revisar que fue resultado del boton guardar
             if (resultCode == RESULT_OK) {
                 String tarea = data.getStringExtra("tarea");
 
-                Toast toast = new Toast(this);
-                toast.setText(tarea);
-                toast.setDuration(Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(MainActivity.this, tarea, Toast.LENGTH_LONG);
                 toast.show();
             }
         }
